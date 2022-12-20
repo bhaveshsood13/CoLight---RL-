@@ -21,7 +21,8 @@ NAN_LABEL = -1
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--memo", type=str, default='initial')
+#     parser.add_argument("--memo", type=str, default='initial')
+    parser.add_argument("--memo", type=str, default='0515_afternoon_Colight_6_6_bi/anon_6_6_300_0.3_bi.json_12_20_03_25_38')
     parser.add_argument("-b", action="store_true",default=False, help="run baseline analysis") ##
     return parser.parse_args()
 
@@ -77,6 +78,7 @@ def get_metrics(duration_list, queue_length_list, min_duration, min_duration_id,
     plt.savefig(save_path + "/" + traffic_name + "-" + mode_name + ".png")
     plt.close()
 
+    print(traffic_name)
     inter_num = traffic_name.split('_')[0]
     vol = traffic_name.split('_')[3]
     ratio = traffic_name.split('_')[4]
@@ -209,6 +211,15 @@ def summary_detail_test(memo, total_summary):
     for traffic_file in os.listdir(records_dir):
         if ".xml" not in traffic_file and ".json" not in traffic_file:
             continue
+            
+        if "roadnet_6_6.json" in traffic_file:
+            continue
+            
+        if "roadnet_3_4.json" in traffic_file:
+            continue
+            
+        if "roadnetLogFile.json" in traffic_file:
+            continue
 
         #if "cross.2phases_rou01_equal_700.xml_12_11_08_16_00" != traffic_file:
         #    continue
@@ -218,12 +229,14 @@ def summary_detail_test(memo, total_summary):
         min_queue_length_id = min_duration_ind = 0
 
         # get run_counts to calculate the queue_length each second
-        exp_conf = open(os.path.join(records_dir, traffic_file, "exp.conf"), 'r')
+#         exp_conf = open(os.path.join(records_dir, traffic_file, "exp.conf"), 'r')
+        exp_conf = open(os.path.join(records_dir, "exp.conf"), 'r')
         dic_exp_conf = json.load(exp_conf)
         print(dic_exp_conf)
 
 
-        traffic_env_conf = open(os.path.join(records_dir, traffic_file, "traffic_env.conf"), 'r')
+#         traffic_env_conf = open(os.path.join(records_dir, traffic_file, "traffic_env.conf"), 'r')
+        traffic_env_conf = open(os.path.join(records_dir, "traffic_env.conf"), 'r')
         dic_traffic_env_conf = json.load(traffic_env_conf)
         run_counts = dic_exp_conf["RUN_COUNTS"]
         num_rounds = dic_exp_conf["NUM_ROUNDS"]
@@ -241,7 +254,8 @@ def summary_detail_test(memo, total_summary):
         num_of_vehicle_in = []
         num_of_vehicle_out = []
 
-        train_round_dir = os.path.join(records_dir, traffic_file, "test_round")
+#         train_round_dir = os.path.join(records_dir, traffic_file, "test_round")
+        train_round_dir = os.path.join(records_dir, "test_round")
         try:
             round_files = os.listdir(train_round_dir)
         except:

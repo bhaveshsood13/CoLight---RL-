@@ -11,6 +11,9 @@ import matplotlib
 
 from script import get_traffic_volume
 
+# import wandb
+# wandb.init(project='colight', sync_tensorboard=True)
+
 multi_process = True
 TOP_K_ADJACENCY=-1
 TOP_K_ADJACENCY_LANE=-1
@@ -18,7 +21,7 @@ PRETRAIN=False
 NUM_ROUNDS=100
 EARLY_STOP=False 
 NEIGHBOR=False
-SAVEREPLAY=False
+SAVEREPLAY=True
 ADJACENCY_BY_CONNECTION_OR_GEO=False
 hangzhou_archive=True
 ANON_PHASE_REPRE=[]
@@ -47,7 +50,7 @@ def parse_args():
     # TAKE CARE
     NEIGHBOR=False
     global SAVEREPLAY # if you want to relay your simulation, set it to be True
-    SAVEREPLAY=False
+    SAVEREPLAY=True
     global ADJACENCY_BY_CONNECTION_OR_GEO
     # TAKE CARE
     ADJACENCY_BY_CONNECTION_OR_GEO=False
@@ -497,4 +500,4 @@ if __name__ == "__main__":
          args.onemodel)
 
 
-
+# wandb.finish()
